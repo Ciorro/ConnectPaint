@@ -1,0 +1,78 @@
+﻿<hss>
+	
+	<!--Container-->
+	<style name="container">
+		<primary-color>secondary +20</primary-color>
+		<border-radius>0</border-radius>
+		<border-thickness>0</border-thickness>
+	</style>
+	
+	<!--ToolBar-->
+	<style name="toolbar">
+		<primary-color>secondary +20</primary-color>
+		<border-radius>0</border-radius>
+		<border-thickness>0</border-thickness>
+	</style>
+	
+	<!--MenuBar Button-->
+	<style name="menu-item">
+		<border-radius>0</border-radius>
+	</style>
+	
+	<!--Canvas-->
+	<style name="canvas">
+		<primary-color>white</primary-color>
+		<border-radius>10</border-radius>
+		<border-thickness>0</border-thickness>
+	</style>
+	
+	<!--Outline Button Override-->
+	<style name="outline_button_default">
+		<primary-color>transparent</primary-color>
+		<secondary-color>transparent</secondary-color>
+	</style>
+
+	<style name="outline_button_default" state="hovered">
+		<primary-color>secondary</primary-color>
+	</style>
+
+	<style name="outline_button_default" state="pressed">
+		<primary-color>secondary -20</primary-color>
+	</style>
+	
+	<!--Color Selector-->
+	<style name="color-selector-default">
+		<primary-color>transparent</primary-color>
+		<border-thickness>2</border-thickness>
+		<border-radius>100</border-radius>
+	</style>
+
+	<style name="color-selector-default" state="hovered">
+		<secondary-color>secondary -20</secondary-color>
+	</style>
+
+	<style name="color-selector-default" state="pressed">
+		<secondary-color>secondary -40</secondary-color>
+	</style>
+
+	<style name="color-selector-selected">
+		<primary-color>transparent</primary-color>
+		<border-thickness>2</border-thickness>
+		<border-radius>100</border-radius>
+		<secondary-color>accent</secondary-color>
+	</style>
+
+	<style name="color-selector-selected" state="hovered">
+		<secondary-color>accent -20</secondary-color>
+	</style>
+
+	<style name="color-selector-selected" state="pressed">
+		<secondary-color>accent -40</secondary-color>
+	</style>
+	
+	<!--Slider-->
+	<style name="slider">
+		<primary-color>secondary +10</primary-color>
+		<secondary-color>secondary +10</secondary-color>
+	</style>
+</hss>
