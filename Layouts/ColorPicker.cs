@@ -170,7 +170,7 @@ namespace Connect.Layouts
 
         public void SetReferenceColor(Color color)
         {
-            _preview.PrevColor = color;
+            _preview.RefColor = color;
         }
 
         public void SetOutputColor(Color color)

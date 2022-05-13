@@ -13,16 +13,16 @@ namespace Connect.Widgets
 {
     internal class ColorPreview : Component
     {
-        private Color _prevColor = Color.White;
+        private Color _refolor = Color.White;
         private Color _currColor = Color.White;
 
-        private RoundedRectangle _prevPreview;
+        private RoundedRectangle _refPreview;
         private RoundedRectangle _currPreview;
         private RoundedRectangle _transparent;
 
         public ColorPreview()
         {
-            _prevPreview = new RoundedRectangle()
+            _refPreview = new RoundedRectangle()
             {
                 BorderRadius = new BorderRadius(4)
             };
@@ -40,17 +40,17 @@ namespace Connect.Widgets
             };
             _transparent.Texture.Repeated = true;
 
-            PrevColor = Color.White;
+            RefColor = Color.White;
             CurrentColor = Color.White;
         }
 
-        public Color PrevColor
+        public Color RefColor
         {
-            get => _prevColor;
+            get => _refolor;
             set
             {
-                _prevColor = value;
-                _prevPreview.FillColor = value;
+                _refolor = value;
+                _refPreview.FillColor = value;
             }
         }
 
@@ -68,23 +68,23 @@ namespace Connect.Widgets
         {
             base.OnRefresh();
 
-            _prevPreview.Size = new Vector2f()
+            _refPreview.Size = new Vector2f()
             {
                 X = Size.X,
                 Y = Size.Y / 2 - 1
             };
-            _prevPreview.Position = (Vector2f)GlobalPosition;
-            _prevPreview.UpdateGeometry();
+            _refPreview.Position = (Vector2f)GlobalPosition;
+            _refPreview.UpdateGeometry();
 
             _currPreview.Size = new Vector2f()
             {
                 X = Size.X,
                 Y = Size.Y / 2 - 1
             };
-            _currPreview.Position = _prevPreview.Position + new Vector2f(0, Size.Y / 2 + 1);
+            _currPreview.Position = _refPreview.Position + new Vector2f(0, Size.Y / 2 + 1);
             _currPreview.UpdateGeometry();
 
-            _transparent.Size = _prevPreview.Size;
+            _transparent.Size = _refPreview.Size;
             _transparent.TextureRect = new IntRect(0, 0, Size.X, Size.Y / 2 - 1);
             _transparent.UpdateGeometry();
         }
@@ -93,9 +93,9 @@ namespace Connect.Widgets
         {
             base.Draw(target);
 
-            _transparent.Position = _prevPreview.Position;
+            _transparent.Position = _refPreview.Position;
             target.Draw(_transparent);
-            target.Draw(_prevPreview);
+            target.Draw(_refPreview);
 
             _transparent.Position = _currPreview.Position;
             target.Draw(_transparent);
