@@ -39,6 +39,7 @@ namespace Connect.Widgets
                 OnColorSelected = (color) =>
                 {
                     Color = color;
+                    _canvas.Color = Color;
                 }
             };
 
