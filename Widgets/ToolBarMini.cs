@@ -34,7 +34,6 @@ namespace Connect.Widgets
                         _canvas.SetDrawable(new LineBuilder());
                     }
                 },
-                new IconButton(Icons.VectorSquare),
                 new IconButton(Icons.DrawPolygon)
                 {
                     Action = (_) =>

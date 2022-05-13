@@ -57,9 +57,16 @@ namespace Connect.CanvasUtils
         {
             if (_builder != null)
             {
-                var drawable = _builder.Build(Points.ToList(), ToolColor);
-                _canvas.PushDrawable(drawable);
+                try
+                {
+                    var drawable = _builder.Build(Points.ToList(), ToolColor);
+                    _canvas.PushDrawable(drawable);
+                }
+                catch (ArgumentException e)
+                {
 
+                }
+                
                 Points.Clear();
                 BuildPreview();
             }

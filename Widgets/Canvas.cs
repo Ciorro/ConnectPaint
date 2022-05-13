@@ -21,6 +21,8 @@ namespace Connect.Widgets
         private RectangleShape _rect;
         private RenderStates _states;
 
+        private Vector2i _prevMPos;
+
         public Canvas()
         {
             Width = "100%";
@@ -94,6 +96,24 @@ namespace Connect.Widgets
                     _tool.Finish();
                 }
             }
+        }
+
+        public override void OnMouseMovedAnywhere(Vector2i location)
+        {
+            base.OnMouseMovedAnywhere(location);
+
+            if (Hovered && Mouse.IsButtonPressed(Mouse.Button.Middle))
+            {
+                Vector2f pos = new Vector2f()
+                {
+                    X = _prevMPos.X - location.X,
+                    Y = _prevMPos.Y - location.Y
+                };
+
+                View.Center += pos / (View.Zoom * Spacing);
+            }
+
+            _prevMPos = location;
         }
 
         public override void Draw(RenderTarget target)
