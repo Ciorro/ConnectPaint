@@ -43,13 +43,23 @@ namespace Connect.CanvasUtils
             var mPos = Mouse.GetPosition(_canvas.Form.Window);
             var mPosRelativeToWidget = new Vector2f()
             {
-                X = mPos.X - _canvas.GlobalPosition.X - Canvas.Spacing / 2f,
-                Y = mPos.Y - _canvas.GlobalPosition.Y - Canvas.Spacing / 3f * 2
+                X = mPos.X - _canvas.GlobalPosition.X,
+                Y = mPos.Y - _canvas.GlobalPosition.Y
             };
 
             var mPosOnCanvas = _canvas.View.ScreenToCanvas(mPosRelativeToWidget);
             mPosOnCanvas.X = (int)mPosOnCanvas.X;
             mPosOnCanvas.Y = (int)mPosOnCanvas.Y;
+
+            if (Math.Sign(mPosOnCanvas.X) < 0)
+            {
+                mPosOnCanvas.X -= 1;
+            }
+
+            if (Math.Sign(mPosOnCanvas.Y) < 0)
+            {
+                mPosOnCanvas.Y -= 1;
+            }
 
             _cursor.Position = mPosOnCanvas;
         }
