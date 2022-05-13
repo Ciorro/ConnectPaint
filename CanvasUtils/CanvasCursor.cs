@@ -100,7 +100,7 @@ namespace Connect.CanvasUtils
 
                     float pointDist = _gridPoint.Position.DistanceSquared(_cursor.Position);
                     float pointAlpha = Math.Clamp(1 - pointDist / (100), 0, 1);
-                    _gridPoint.FillColor = new Color(255, 255, 255, (byte)(64 * pointAlpha));
+                    _gridPoint.FillColor = new Color(128, 128, 128, (byte)(64 * pointAlpha));
 
                     target.Draw(_gridPoint, states);
                 }
@@ -109,10 +109,10 @@ namespace Connect.CanvasUtils
 
         private void DrawAxes(RenderTarget target, RenderStates states)
         {
-            _axes[0] = new Vertex(new Vector2f(_cursor.Position.X, _cursor.Position.Y - 9999), new Color(0, 0, 0, 64));
-            _axes[1] = new Vertex(new Vector2f(_cursor.Position.X, _cursor.Position.Y + 9999), new Color(0, 0, 0, 64));
-            _axes[2] = new Vertex(new Vector2f(_cursor.Position.X - 9999, _cursor.Position.Y), new Color(0, 0, 0, 64));
-            _axes[3] = new Vertex(new Vector2f(_cursor.Position.X + 9999, _cursor.Position.Y), new Color(0, 0, 0, 64));
+            _axes[0] = new Vertex(new Vector2f(_cursor.Position.X, _cursor.Position.Y - 9999), new Color(128, 128, 128, 64));
+            _axes[1] = new Vertex(new Vector2f(_cursor.Position.X, _cursor.Position.Y + 9999), new Color(128, 128, 128, 64));
+            _axes[2] = new Vertex(new Vector2f(_cursor.Position.X - 9999, _cursor.Position.Y), new Color(128, 128, 128, 64));
+            _axes[3] = new Vertex(new Vector2f(_cursor.Position.X + 9999, _cursor.Position.Y), new Color(128, 128, 128, 64));
 
             target.Draw(_axes, states);
         }
