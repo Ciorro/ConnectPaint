@@ -15,7 +15,6 @@ namespace Connect.Widgets
 
         private Observer<Vector2i> _sizeObserver;
         private List<CanvasDrawable> _drawables;
-        private CanvasTool _tool;
 
         private RenderTexture _canvas;
         private RectangleShape _rect;
@@ -34,11 +33,13 @@ namespace Connect.Widgets
             View = new CanvasView(this);
             Cursor = new CanvasCursor(this);
 
-            _tool = new CanvasTool(this);
+            Tool = new CanvasTool(this);
             _states = RenderStates.Default;
 
             CreateCanvas();
         }
+
+        public CanvasTool Tool { get; }
 
         public CanvasView View { get; }
 
@@ -46,8 +47,8 @@ namespace Connect.Widgets
 
         public Color Color
         {
-            get => _tool.ToolColor;
-            set => _tool.ToolColor = value;
+            get => Tool.ToolColor;
+            set => Tool.ToolColor = value;
         }
 
         public override void OnInitialized()
@@ -58,11 +59,6 @@ namespace Connect.Widgets
 
         public void Clear()
         {
-        }
-
-        public void SetDrawable(IDrawableBuilder builder)
-        {
-            _tool.SetDrawable(builder);
         }
 
         public void PushDrawable(CanvasDrawable drawable)
@@ -80,20 +76,20 @@ namespace Connect.Widgets
             }
 
             Cursor.Update();
-            _tool.CursorPoint = Cursor.SelectedPoint;
+            Tool.CursorPoint = Cursor.SelectedPoint;
         }
 
         private void Window_MouseButtonPressed(object sender, MouseButtonEventArgs e)
         {
-            if (_tool != null)
+            if (Tool != null)
             {
                 if (Hovered && e.Button == Mouse.Button.Left)
                 {
-                    _tool.PushPoint(Cursor.SelectedPoint);
+                    Tool.PushPoint(Cursor.SelectedPoint);
                 }
                 else if (e.Button == Mouse.Button.Right)
                 {
-                    _tool.Finish();
+                    Tool.Finish();
                 }
             }
         }
@@ -130,7 +126,7 @@ namespace Connect.Widgets
 
             _canvas.Draw(Cursor);
 
-            _canvas.Draw(_tool, _states);
+            _canvas.Draw(Tool, _states);
 
             _canvas.Display();
             target.Draw(_rect);

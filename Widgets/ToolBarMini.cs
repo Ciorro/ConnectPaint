@@ -31,21 +31,21 @@ namespace Connect.Widgets
                 {
                     Action = (_) =>
                     {
-                        _canvas.SetDrawable(new LineBuilder());
+                        _canvas.Tool.SetDrawable(new LineBuilder());
                     }
                 },
                 new IconButton(Icons.DrawPolygon)
                 {
                     Action = (_) =>
                     {
-                        _canvas.SetDrawable(new PolygonBuilder());
+                        _canvas.Tool.SetDrawable(new PolygonBuilder());
                     }
                 },
                 new IconButton(Icons.DotCircle)
                 {
                     Action = (_) =>
                     {
-                        _canvas.SetDrawable(new PointsBuilder());
+                        _canvas.Tool.SetDrawable(new PointsBuilder());
                     }
                 },
                 new Divider()

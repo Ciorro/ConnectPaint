@@ -1,4 +1,5 @@
 ﻿using Connect.CanvasUtils.Builders;
+using Connect.Utils;
 using Connect.Widgets;
 using SFML.Graphics;
 using SFML.System;
@@ -23,6 +24,22 @@ namespace Connect.CanvasUtils
         public Vector2i CursorPoint { get; set; }
 
         public Color ToolColor { get; set; }
+
+        public float LineLength
+        {
+            get
+            {
+                if (Points.Count == 0)
+                {
+                    return 0;
+                }
+
+                var p1 = (Vector2f)Points.First();
+                var p2 = (Vector2f)CursorPoint;
+
+                return p2.Distance(p1);
+            }
+        }
 
         public void SetDrawable(IDrawableBuilder builder)
         {
@@ -66,7 +83,7 @@ namespace Connect.CanvasUtils
                 {
 
                 }
-                
+
                 Points.Clear();
                 BuildPreview();
             }

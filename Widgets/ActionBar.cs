@@ -10,6 +10,7 @@ namespace Connect.Widgets
         private Canvas _canvas;
         private TrackBar _zoom;
         private Label _coords;
+        private Label _length;
 
         public ActionBar()
         {
@@ -24,9 +25,18 @@ namespace Connect.Widgets
                 {
                     MarginRight = "5px"
                 },
-                new Label("135, -345")
+                new Label()
                 {
                     Name = "coords"
+                },
+                new Icon(Icons.Ruler)
+                {
+                    MarginRight = "5px",
+                    MarginLeft = "15px"
+                },
+                new Label()
+                {
+                    Name = "length"
                 },
                 new Spacer(),
                 new Icon(Icons.Minus),
@@ -49,6 +59,7 @@ namespace Connect.Widgets
 
             _canvas = Form.Root.FindChild("canvas") as Canvas;
             _coords = FindChild("coords") as Label;
+            _length = FindChild("length") as Label;
             _zoom = FindChild("zoom") as TrackBar;
 
             _zoom.OnConfirmed += (_, value) =>
@@ -87,6 +98,9 @@ namespace Connect.Widgets
 
             var cursorCoords = _canvas.Cursor.SelectedPoint;
             _coords.Text = $"{cursorCoords.X}, {cursorCoords.Y}";
+
+            var toolLength = _canvas.Tool.LineLength;
+            _length.Text = $"{MathF.Round(toolLength, 2)}";
         }
     }
 }
