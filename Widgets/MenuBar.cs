@@ -8,6 +8,7 @@ namespace Connect.Widgets
     {
         private const int MenuY = 30;
 
+        private Canvas _canvas;
 
         public MenuBar()
         {
@@ -64,9 +65,9 @@ namespace Connect.Widgets
                     Name = "file-menu",
                     Items = new List<MenuItem>
                     {
-                        new MenuItem("New") 
-                        { 
-                            Icon = Icons.File 
+                        new MenuItem("New")
+                        {
+                            Icon = Icons.File
                         },
                         new MenuItem("Open")
                         {
@@ -117,8 +118,22 @@ namespace Connect.Widgets
                     Name = "view-menu",
                     Items = new List<MenuItem>
                     {
-                        new CheckMenuItem("Show grid"),
+                        new CheckMenuItem("Show grid")
+                        {
+                            Action = (grid) =>
+                            {
+                                _canvas.Cursor.ShowGrid = !(grid as CheckMenuItem).IsChecked;
+                            },
+                            IsChecked = true
+                        },
                         new CheckMenuItem("Show axes")
+                        {
+                            Action = (grid) =>
+                            {
+                                _canvas.Cursor.ShowAxes = !(grid as CheckMenuItem).IsChecked;
+                            },
+                            IsChecked = true
+                        }
                     }
                 },
                 new Menu()
@@ -133,6 +148,12 @@ namespace Connect.Widgets
                     }
                 }
             };
+        }
+
+        public override void OnInitialized()
+        {
+            base.OnInitialized();
+            _canvas = Form.Root.FindChild("canvas") as Canvas;
         }
     }
 }
