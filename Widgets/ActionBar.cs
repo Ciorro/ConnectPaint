@@ -1,5 +1,6 @@
 ﻿using HlyssUI.Components;
 using HlyssUI.Graphics;
+using SFML.System;
 using SFML.Window;
 
 namespace Connect.Widgets
@@ -34,8 +35,8 @@ namespace Connect.Widgets
                     Width = "200px",
                     Height = "30px",
                     Margin = "0 14",
-                    MaxValue = 90,
-                    Value = 20,
+                    MaxValue = 350,
+                    Value = 50,
                     Name = "zoom"
                 },
                 new Icon(Icons.Plus)
@@ -52,7 +53,8 @@ namespace Connect.Widgets
 
             _zoom.OnConfirmed += (_, value) =>
             {
-                _canvas.Spacing = value + 10;
+                _canvas.View.Zoom = (value + 50) / 100f;
+                Console.WriteLine(_canvas.View.Zoom);
             };
         }
 
@@ -62,9 +64,20 @@ namespace Connect.Widgets
 
             if (Keyboard.IsKeyPressed(Keyboard.Key.LControl))
             {
-                _zoom.Value += (int)scroll;
-                _zoom.Value = Math.Clamp(_zoom.Value, 0, 90);
-                _canvas.Spacing = _zoom.Value + 10;
+                _zoom.Value += (int)scroll * 5;
+                _zoom.Value = Math.Clamp(_zoom.Value, 0, 350);
+                _canvas.View.Zoom = (_zoom.Value + 50) / 100f;
+            }
+            else
+            {
+                if (Keyboard.IsKeyPressed(Keyboard.Key.LShift))
+                {
+                    _canvas.View.Center -= new Vector2f(5 * scroll, 0);
+                }
+                else
+                {
+                    _canvas.View.Center -= new Vector2f(0, 5 * scroll);
+                }
             }
         }
 
@@ -72,7 +85,7 @@ namespace Connect.Widgets
         {
             base.Update();
 
-            var cursorCoords = _canvas.CursorPosition;
+            var cursorCoords = _canvas.Cursor.SelectedPoint;
             _coords.Text = $"{cursorCoords.X}, {cursorCoords.Y}";
         }
     }
