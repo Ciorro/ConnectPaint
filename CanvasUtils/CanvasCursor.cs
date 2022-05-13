@@ -12,6 +12,7 @@ namespace Connect.CanvasUtils
 
         private CircleShape _cursor;
         private CircleShape _gridPoint;
+        private VertexArray _axes;
 
         public CanvasCursor(Canvas canvas)
         {
@@ -27,11 +28,17 @@ namespace Connect.CanvasUtils
             {
                 Origin = new Vector2f(0.1f, 0.1f)
             };
+
+            _axes = new VertexArray(PrimitiveType.Lines, 4);
+            for (int i = 0; i < 4; i++)
+            {
+                _axes.Append(new Vertex());
+            }
         }
 
-        public bool DrawGrid { get; set; } = true;
+        public bool ShowGrid { get; set; } = true;
 
-        public bool DrawAxes { get; set; } = true;
+        public bool ShowAxes { get; set; } = true;
 
         public Vector2i SelectedPoint
         {
@@ -68,13 +75,18 @@ namespace Connect.CanvasUtils
         {
             target.Draw(_cursor, new RenderStates(_canvas.View.Transform));
 
-            if (DrawGrid)
+            if (ShowAxes)
             {
-                DrawDots(target, new RenderStates(_canvas.View.Transform));
+                DrawAxes(target, new RenderStates(_canvas.View.Transform));
+            }
+
+            if (ShowGrid)
+            {
+                DrawGrid(target, new RenderStates(_canvas.View.Transform));
             }
         }
 
-        private void DrawDots(RenderTarget target, RenderStates states)
+        private void DrawGrid(RenderTarget target, RenderStates states)
         {
             for (int x = -10; x < 10; x++)
             {
@@ -93,6 +105,16 @@ namespace Connect.CanvasUtils
                     target.Draw(_gridPoint, states);
                 }
             }
+        }
+
+        private void DrawAxes(RenderTarget target, RenderStates states)
+        {
+            _axes[0] = new Vertex(new Vector2f(_cursor.Position.X, _cursor.Position.Y - 9999), new Color(0, 0, 0, 64));
+            _axes[1] = new Vertex(new Vector2f(_cursor.Position.X, _cursor.Position.Y + 9999), new Color(0, 0, 0, 64));
+            _axes[2] = new Vertex(new Vector2f(_cursor.Position.X - 9999, _cursor.Position.Y), new Color(0, 0, 0, 64));
+            _axes[3] = new Vertex(new Vector2f(_cursor.Position.X + 9999, _cursor.Position.Y), new Color(0, 0, 0, 64));
+
+            target.Draw(_axes, states);
         }
     }
 }
