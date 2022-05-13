@@ -4,7 +4,7 @@ using HlyssUI.Layout;
 
 namespace Connect.Widgets
 {
-    internal class Slider : Panel
+    internal class PreciseSlider : Panel
     {
         public struct SliderProperties
         {
@@ -32,7 +32,7 @@ namespace Connect.Widgets
             }
         }
 
-        public Slider(SliderProperties properties)
+        public PreciseSlider(SliderProperties properties)
         {
             _vProps = properties;
 

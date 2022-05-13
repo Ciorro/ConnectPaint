@@ -34,7 +34,7 @@ namespace Connect.Layouts
                             Layout = LayoutType.Column,
                             Children = new List<Component>
                             {
-                                new Slider(new Slider.SliderProperties()
+                                new PreciseSlider(new PreciseSlider.SliderProperties()
                                 {
                                     MinValue = 0,
                                     MaxValue = 255,
@@ -52,7 +52,7 @@ namespace Connect.Layouts
                                         };
                                     }
                                 },
-                                new Slider(new Slider.SliderProperties()
+                                new PreciseSlider(new PreciseSlider.SliderProperties()
                                 {
                                     MinValue = 0,
                                     MaxValue = 255,
@@ -70,7 +70,7 @@ namespace Connect.Layouts
                                         };
                                     }
                                 },
-                                new Slider(new Slider.SliderProperties()
+                                new PreciseSlider(new PreciseSlider.SliderProperties()
                                 {
                                     MinValue = 0,
                                     MaxValue = 255,
@@ -88,7 +88,7 @@ namespace Connect.Layouts
                                         };
                                     }
                                 },
-                                new Slider(new Slider.SliderProperties()
+                                new PreciseSlider(new PreciseSlider.SliderProperties()
                                 {
                                     MinValue = 0,
                                     MaxValue = 255,
@@ -139,10 +139,10 @@ namespace Connect.Layouts
                             Appearance = Button.ButtonStyle.Filled,
                             Action = (_) =>
                             {
-                                var r = FindChild("r") as Slider;
-                                var g = FindChild("g") as Slider;
-                                var b = FindChild("b") as Slider;
-                                var a = FindChild("a") as Slider;
+                                var r = FindChild("r") as PreciseSlider;
+                                var g = FindChild("g") as PreciseSlider;
+                                var b = FindChild("b") as PreciseSlider;
+                                var a = FindChild("a") as PreciseSlider;
 
                                 OnColorSelected?.Invoke(new Color((byte)r.Value, (byte)g.Value, (byte)b.Value, (byte)a.Value));
                             }
@@ -153,10 +153,10 @@ namespace Connect.Layouts
                             MarginRight = "5px",
                             Action = (_) =>
                             {
-                                var r = FindChild("r") as Slider;
-                                var g = FindChild("g") as Slider;
-                                var b = FindChild("b") as Slider;
-                                var a = FindChild("a") as Slider;
+                                var r = FindChild("r") as PreciseSlider;
+                                var g = FindChild("g") as PreciseSlider;
+                                var b = FindChild("b") as PreciseSlider;
+                                var a = FindChild("a") as PreciseSlider;
 
                                 OnCancelled?.Invoke(new Color((byte)r.Value, (byte)g.Value, (byte)b.Value, (byte)a.Value));
                             }
@@ -175,10 +175,10 @@ namespace Connect.Layouts
 
         public void SetOutputColor(Color color)
         {
-            (FindChild("r") as Slider).Value = color.R;
-            (FindChild("g") as Slider).Value = color.G;
-            (FindChild("b") as Slider).Value = color.B;
-            (FindChild("a") as Slider).Value = color.A;
+            (FindChild("r") as PreciseSlider).Value = color.R;
+            (FindChild("g") as PreciseSlider).Value = color.G;
+            (FindChild("b") as PreciseSlider).Value = color.B;
+            (FindChild("a") as PreciseSlider).Value = color.A;
 
             _preview.CurrentColor = color;
         }
