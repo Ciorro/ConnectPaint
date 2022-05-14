@@ -73,47 +73,16 @@ namespace Connect.Widgets
                             Icon = Icons.File,
                             Action = (_) =>
                             {
-                                if (_canvas.HasDrawings)
-                                {
-                                    var confirm = new MessageBox(
-                                        title: "New",
-                                        content: "Your document has unsaved changes. What would you like to do?",
-                                        buttons: new[]
-                                        {
-                                            "Cancel", "Discard", "Save"
-                                        }
-                                    );
-                                    confirm.ResultHandler = (_, result) =>
-                                    {
-                                        //Save 2, Discard 1, Cancel 0
-                                        if (result == 1)
-                                        {
-                                            NewCanvas();
-                                        }
-                                        if (result == 2)
-                                        {
-                                            if (string.IsNullOrEmpty(_filename))
-                                            {
-                                                SaveAs();
-                                            }
-                                            else
-                                            {
-                                                Save(_filename);
-                                            }
-                                        }
-                                    };
-
-                                    Form.Application.RegisterAndShow(confirm);
-                                }
-                                else
-                                { 
-                                    NewCanvas();
-                                }
+                                NewCanvas();
                             }
                         },
                         new MenuItem("Open")
                         {
-                            Icon = Icons.Folder
+                            Icon = Icons.Folder,
+                            Action = (_) =>
+                            {
+                                Open();
+                            }
                         },
                         new MenuDivider(),
                         new MenuItem("Save")
@@ -146,7 +115,11 @@ namespace Connect.Widgets
                         new MenuDivider(),
                         new MenuItem("Exit")
                         {
-                            Icon = Icons.X
+                            Icon = Icons.X,
+                            Action = (_) =>
+                            {
+                                Exit();
+                            }
                         }
                     }
                 },
@@ -210,10 +183,101 @@ namespace Connect.Widgets
             };
         }
 
-        private void NewCanvas()
+        private bool NewCanvas()
         {
-            _filename = "";
-            _canvas.Clear();
+            bool cleared = false;
+
+            if (_canvas.HasDrawings)
+            {
+                var confirm = new MessageBox(
+                    title: "New",
+                    content: "Your document has unsaved changes. What would you like to do?",
+                    buttons: new[]
+                    {
+                        "Cancel", "Discard", "Save"
+                    }
+                );
+                confirm.ResultHandler = (_, result) =>
+                {
+                    //Save 2, Discard 1, Cancel 0
+                    if (result == 1)
+                    {
+                        _filename = "";
+                        _canvas.Clear();
+                        cleared = true;
+                    }
+                    if (result == 2)
+                    {
+                        if (string.IsNullOrEmpty(_filename))
+                        {
+                            SaveAs();
+                        }
+                        else
+                        {
+                            Save(_filename);
+                        }
+
+                        _filename = "";
+                        _canvas.Clear();
+                        cleared = true;
+                    }
+                };
+
+                Form.Application.RegisterAndShow(confirm);
+            }
+            else
+            {
+                _filename = "";
+                _canvas.Clear();
+                cleared = true;
+            }
+
+            return cleared;
+        }
+
+        private bool Exit()
+        {
+            bool cleared = false;
+
+            if (_canvas.HasDrawings)
+            {
+                var confirm = new MessageBox(
+                    title: "New",
+                    content: "Your document has unsaved changes. What would you like to do?",
+                    buttons: new[]
+                    {
+                        "Cancel", "Discard", "Save"
+                    }
+                );
+                confirm.ResultHandler = (_, result) =>
+                {
+                    //Save 2, Discard 1, Cancel 0
+                    if (result == 1)
+                    {
+                        Form.Window.Close();
+                    }
+                    if (result == 2)
+                    {
+                        if (string.IsNullOrEmpty(_filename))
+                        {
+                            SaveAs();
+                        }
+                        else
+                        {
+                            Save(_filename);
+                            Form.Window.Close();
+                        }
+                    }
+                };
+
+                Form.Application.RegisterAndShow(confirm);
+            }
+            else
+            {
+                Form.Window.Close();
+            }
+
+            return cleared;
         }
 
         public override void OnInitialized()
@@ -252,6 +316,28 @@ namespace Connect.Widgets
             };
 
             Form.Application.RegisterAndShow(save);
+        }
+
+        private void Open()
+        {
+            var file = new BrowseFileDialog()
+            {
+                StartDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments),
+                OnFileSelected = (_, fsEntry) =>
+                {
+                    if (fsEntry.Length == 1 && !fsEntry[0].IsDirectory)
+                    {
+                        if (NewCanvas())
+                        {
+                            var content = File.ReadAllText(fsEntry[0].FullPath);
+                            _canvas.Import(content);
+                            _filename = fsEntry[0].FullPath;
+                        }
+                    }
+                }
+            };
+
+            Form.Application.RegisterAndShow(file);
         }
     }
 }

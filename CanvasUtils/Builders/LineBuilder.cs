@@ -16,7 +16,7 @@ namespace Connect.CanvasUtils.Builders
             return new CanvasLine(points)
             {
                 Color = color,
-                Thickness = 2 / 20f
+                Thickness = 0.1f
             };
         }
     }

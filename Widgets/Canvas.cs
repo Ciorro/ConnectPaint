@@ -88,13 +88,49 @@ namespace Connect.Widgets
             View.Center = new Vector2f();
         }
 
+        public void Import(string file)
+        {
+            string[] lines = file.Split(',', StringSplitOptions.RemoveEmptyEntries);
+
+            foreach (var line in lines)
+            {
+                string[] args = line.Split(' ');
+
+                byte r = byte.Parse(args[1]);
+                byte g = byte.Parse(args[2]);
+                byte b = byte.Parse(args[3]);
+                byte a = byte.Parse(args[4]);
+
+                List<Vector2i> points = new();
+
+                for (int i = 5; i < args.Length; i += 2)
+                {
+                    int p1 = int.Parse(args[i + 0]);
+                    int p2 = int.Parse(args[i + 1]);
+                    points.Add(new Vector2i(p1, p2));
+                }
+
+                CanvasDrawable drawable = args[0] switch
+                {
+                    "line" => new CanvasLine(points),
+                    "polygon" => new CanvasPolygon(points),
+                    "points" => new CanvasPoints(points),
+                    _ => throw new InvalidDataException($"Invalid drawable type: {args[0]}")
+                };
+
+                drawable.Color = new Color(r, g, b, a);
+                drawable.Thickness = 0.1f;
+                _drawables.Add(drawable);
+            }
+        }
+
         public string Export()
         {
             var strBuilder = new StringBuilder(_drawables.Count);
 
             foreach (var d in _drawables)
             {
-                strBuilder.AppendLine(d.ToString());
+                strBuilder.Append($"{d.ToString()},");
             }
 
             return strBuilder.ToString();
