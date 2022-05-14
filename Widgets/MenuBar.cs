@@ -182,7 +182,11 @@ namespace Connect.Widgets
                     {
                         new MenuItem("About ConnectPaint")
                         {
-                            Icon = Icons.InfoCircle
+                            Icon = Icons.InfoCircle,
+                            Action = (_) =>
+                            {
+                                Form.Application.RegisterAndShow(new InfoDialog());
+                            }
                         }
                     }
                 }

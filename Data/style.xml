@@ -75,4 +75,9 @@
 		<primary-color>secondary +10</primary-color>
 		<secondary-color>secondary +10</secondary-color>
 	</style>
+	
+	<!--Header-->
+	<style name="header">
+		<font-size>24</font-size>
+	</style>
 </hss>
