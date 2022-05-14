@@ -1,4 +1,5 @@
-﻿using HlyssUI.Components;
+﻿using Connect.Dialogs;
+using HlyssUI.Components;
 using HlyssUI.Components.Dialogs;
 using HlyssUI.Graphics;
 using SFML.System;
@@ -9,7 +10,7 @@ namespace Connect.Widgets
     {
         private const int MenuY = 30;
 
-        private string _saveName;
+        private string _filename;
         private Canvas _canvas;
 
         public MenuBar()
@@ -87,19 +88,26 @@ namespace Connect.Widgets
                                         //Save 2, Discard 1, Cancel 0
                                         if (result == 1)
                                         {
-                                            _canvas.Clear();
+                                            NewCanvas();
                                         }
                                         if (result == 2)
                                         {
-
+                                            if (string.IsNullOrEmpty(_filename))
+                                            {
+                                                SaveAs();
+                                            }
+                                            else
+                                            {
+                                                Save(_filename);
+                                            }
                                         }
                                     };
 
                                     Form.Application.RegisterAndShow(confirm);
                                 }
                                 else
-                                {
-                                    _canvas.Clear();
+                                { 
+                                    NewCanvas();
                                 }
                             }
                         },
@@ -113,17 +121,32 @@ namespace Connect.Widgets
                             Icon = Icons.Save,
                             Action = (_) =>
                             {
-
+                                if (string.IsNullOrEmpty(_filename))
+                                {
+                                    SaveAs();
+                                }
+                                else
+                                {
+                                    Save(_filename);
+                                }
                             }
                         },
                         new MenuItem("Save as...")
                         {
-                            Icon = Icons.Save
+                            Icon = Icons.Save,
+                            Action = (_) =>
+                            {
+                                SaveAs();
+                            }
+                        },
+                        new MenuItem("Export")
+                        {
+                            Icon = Icons.FileExport
                         },
                         new MenuDivider(),
                         new MenuItem("Exit")
                         {
-                            Icon = Icons.FileExport
+                            Icon = Icons.X
                         }
                     }
                 },
@@ -187,10 +210,48 @@ namespace Connect.Widgets
             };
         }
 
+        private void NewCanvas()
+        {
+            _filename = "";
+            _canvas.Clear();
+        }
+
         public override void OnInitialized()
         {
             base.OnInitialized();
             _canvas = Form.Root.FindChild("canvas") as Canvas;
+        }
+
+        private void Save(string filename)
+        {
+            var dir = Path.GetDirectoryName(filename);
+
+            if (Directory.Exists(dir))
+            {
+                File.WriteAllText(filename, _canvas.Export());
+            }
+            else
+            {
+                Form.Application.RegisterAndShow(new MessageBox(
+                    title: "Error",
+                    content: "Invalid directory.",
+                    buttons: "Ok"
+                ));
+            }
+        }
+
+        private void SaveAs()
+        {
+            var save = new SaveDialog()
+            {
+                OnSaved = (filename) =>
+                {
+                    Save(filename);
+                    _filename = filename;
+                }
+            };
+
+            Form.Application.RegisterAndShow(save);
         }
     }
 }
