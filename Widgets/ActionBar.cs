@@ -92,6 +92,23 @@ namespace Connect.Widgets
             }
         }
 
+        public override void OnKeyPressed(Keyboard.Key key)
+        {
+            base.OnKeyPressed(key);
+
+            if(Keyboard.IsKeyPressed(Keyboard.Key.LControl))
+            {
+                if (key == Keyboard.Key.Z)
+                {
+                    _canvas.Tool.Undo();
+                }
+                else if (key == Keyboard.Key.Y)
+                {
+                    _canvas.Tool.Redo();
+                }
+            }
+        }
+
         public override void Update()
         {
             base.Update();

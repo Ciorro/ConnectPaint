@@ -20,8 +20,20 @@ namespace Connect.Widgets
 
             Children = new List<Component>
             {
-                new IconButton(Icons.Undo),
-                new IconButton(Icons.Redo),
+                new IconButton(Icons.Undo)
+                {
+                    Action = (_) =>
+                    {
+                        _canvas.Tool.Undo();
+                    }
+                },
+                new IconButton(Icons.Redo)
+                {
+                    Action = (_) =>
+                    {
+                        _canvas.Tool.Redo();
+                    }
+                },
                 new Divider()
                 {
                     Margin = "5px",

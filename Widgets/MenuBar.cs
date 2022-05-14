@@ -105,11 +105,19 @@ namespace Connect.Widgets
                     {
                         new MenuItem("Undo")
                         {
-                            Icon = Icons.Undo
+                            Icon = Icons.Undo,
+                            Action = (_) =>
+                            {
+                                _canvas.Tool.Undo();
+                            }
                         },
                         new MenuItem("Redo")
                         {
-                            Icon = Icons.Redo
+                            Icon = Icons.Redo,
+                            Action = (_) =>
+                            {
+                                _canvas.Tool.Redo();
+                            }
                         }
                     }
                 },

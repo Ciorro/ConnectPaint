@@ -1,5 +1,5 @@
-﻿using Connect.CanvasUtils;
-using Connect.CanvasUtils.Builders;
+﻿using Connect.Actions;
+using Connect.CanvasUtils;
 using Connect.CanvasUtils.Drawables;
 using HlyssUI.Components;
 using HlyssUI.Utils;
@@ -57,14 +57,23 @@ namespace Connect.Widgets
             Form.Window.MouseButtonPressed += Window_MouseButtonPressed;
         }
 
-        public void Clear()
-        {
-        }
+        public void Add(CanvasDrawable item)
+            => _drawables.Add(item);
 
-        public void PushDrawable(CanvasDrawable drawable)
-        {
-            _drawables.Add(drawable);
-        }
+        public void Insert(int index, CanvasDrawable item)
+            => _drawables.Insert(index, item);
+
+        public void Remove(CanvasDrawable item)
+            => _drawables.Remove(item);
+
+        public void RemoveAt(int index)
+            => _drawables.RemoveAt(index);
+
+        public int IndexOf(CanvasDrawable item)
+            => _drawables.IndexOf(item);
+
+        public void Clear()
+            => _drawables.Clear();
 
         public override void Update()
         {

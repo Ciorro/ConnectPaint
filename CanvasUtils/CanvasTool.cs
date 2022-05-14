@@ -1,4 +1,5 @@
-﻿using Connect.CanvasUtils.Builders;
+﻿using Connect.Actions;
+using Connect.CanvasUtils.Builders;
 using Connect.Utils;
 using Connect.Widgets;
 using SFML.Graphics;
@@ -11,6 +12,7 @@ namespace Connect.CanvasUtils
         private Canvas _canvas;
         private IDrawableBuilder _builder;
         private VertexArray _preview;
+        private ActionStack _actions;
 
         protected Stack<Vector2i> Points;
 
@@ -19,6 +21,7 @@ namespace Connect.CanvasUtils
             _canvas = canvas;
             _preview = new VertexArray(PrimitiveType.LineStrip);
             Points = new Stack<Vector2i>();
+            _actions = new ActionStack();
         }
 
         public Vector2i CursorPoint { get; set; }
@@ -40,6 +43,10 @@ namespace Connect.CanvasUtils
                 return p2.Distance(p1);
             }
         }
+
+        public void Undo() => _actions.Undo();
+
+        public void Redo() => _actions.Redo();
 
         public void SetDrawable(IDrawableBuilder builder)
         {
@@ -77,11 +84,14 @@ namespace Connect.CanvasUtils
                 try
                 {
                     var drawable = _builder.Build(Points.ToList(), ToolColor);
-                    _canvas.PushDrawable(drawable);
+
+                    _actions.Do(new DrawAction(
+                        _canvas, drawable
+                    ));
                 }
                 catch (ArgumentException e)
                 {
-
+                    //Invalid shape
                 }
 
                 Points.Clear();
