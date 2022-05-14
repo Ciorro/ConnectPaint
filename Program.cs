@@ -4,6 +4,7 @@ using HlyssUI;
 using HlyssUI.Components.Routers;
 using HlyssUI.Styling;
 using HlyssUI.Themes;
+using SFML.Graphics;
 using SFML.System;
 using SFML.Window;
 
@@ -26,7 +27,8 @@ namespace Connect
             HlyssForm form = new HlyssForm()
             {
                 Size = new Vector2u(1280, 720),
-                Title = "ConnectPaint"
+                Title = "ConnectPaint",
+                Icon = new Image("Data/favicon.png")
             };
 
             form.Show();

@@ -1,4 +1,5 @@
 ﻿using HlyssUI.Components;
+using HlyssUI.Components.Dialogs;
 using HlyssUI.Graphics;
 using SFML.System;
 
@@ -8,6 +9,7 @@ namespace Connect.Widgets
     {
         private const int MenuY = 30;
 
+        private string _saveName;
         private Canvas _canvas;
 
         public MenuBar()
@@ -67,7 +69,39 @@ namespace Connect.Widgets
                     {
                         new MenuItem("New")
                         {
-                            Icon = Icons.File
+                            Icon = Icons.File,
+                            Action = (_) =>
+                            {
+                                if (_canvas.HasDrawings)
+                                {
+                                    var confirm = new MessageBox(
+                                        title: "New",
+                                        content: "Your document has unsaved changes. What would you like to do?",
+                                        buttons: new[]
+                                        {
+                                            "Cancel", "Discard", "Save"
+                                        }
+                                    );
+                                    confirm.ResultHandler = (_, result) =>
+                                    {
+                                        //Save 2, Discard 1, Cancel 0
+                                        if (result == 1)
+                                        {
+                                            _canvas.Clear();
+                                        }
+                                        if (result == 2)
+                                        {
+
+                                        }
+                                    };
+
+                                    Form.Application.RegisterAndShow(confirm);
+                                }
+                                else
+                                {
+                                    _canvas.Clear();
+                                }
+                            }
                         },
                         new MenuItem("Open")
                         {
@@ -76,22 +110,17 @@ namespace Connect.Widgets
                         new MenuDivider(),
                         new MenuItem("Save")
                         {
-                            Icon = Icons.Save
+                            Icon = Icons.Save,
+                            Action = (_) =>
+                            {
+
+                            }
                         },
                         new MenuItem("Save as...")
                         {
                             Icon = Icons.Save
                         },
                         new MenuDivider(),
-                        new MenuItem("Recent")
-                        {
-                            Icon = Icons.Clock
-                        },
-                        new MenuDivider(),
-                        new MenuItem("Preferences")
-                        {
-                            Icon = Icons.Cog
-                        },
                         new MenuItem("Exit")
                         {
                             Icon = Icons.FileExport

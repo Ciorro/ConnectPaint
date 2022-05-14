@@ -33,5 +33,11 @@
                 _actions[_currentIndex++].Do();
             }
         }
+
+        public void Clear()
+        {
+            _actions.Clear();
+            _currentIndex = 0;
+        }
     }
 }

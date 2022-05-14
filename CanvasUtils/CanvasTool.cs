@@ -48,6 +48,8 @@ namespace Connect.CanvasUtils
 
         public void Redo() => _actions.Redo();
 
+        public void ClearActionStack() => _actions.Clear();
+
         public void SetDrawable(IDrawableBuilder builder)
         {
             if (Points.Count > 0)

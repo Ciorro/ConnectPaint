@@ -41,6 +41,7 @@ namespace Connect.Widgets
                 },
                 new IconButton(Icons.Pencil)
                 {
+                    Name = "line",
                     Action = (_) =>
                     {
                         _canvas.Tool.SetDrawable(new LineBuilder());
@@ -48,6 +49,7 @@ namespace Connect.Widgets
                 },
                 new IconButton(Icons.DrawPolygon)
                 {
+                    Name = "polygon",
                     Action = (_) =>
                     {
                         _canvas.Tool.SetDrawable(new PolygonBuilder());
@@ -55,6 +57,7 @@ namespace Connect.Widgets
                 },
                 new IconButton(Icons.DotCircle)
                 {
+                    Name = "point",
                     Action = (_) =>
                     {
                         _canvas.Tool.SetDrawable(new PointsBuilder());
@@ -64,6 +67,21 @@ namespace Connect.Widgets
                 {
                     Margin = "5px",
                     Width = "50%"
+                },
+                new ToolTip()
+                {
+                    Text = "Line Tool",
+                    TargetName = "line"
+                },
+                new ToolTip()
+                {
+                    Text = "Polygon Tool",
+                    TargetName = "polygon"
+                },
+                new ToolTip()
+                {
+                    Text = "Point Tool",
+                    TargetName = "point"
                 }
             };
         }

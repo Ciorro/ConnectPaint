@@ -44,6 +44,8 @@ namespace Connect.CanvasUtils.Drawables
 
         protected abstract void SetColor(Color color);
 
+        public abstract new string ToString();
+
         public abstract void Draw(RenderTarget target, RenderStates states);
     }
 }

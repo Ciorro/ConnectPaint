@@ -1,11 +1,13 @@
 ﻿using Connect.Actions;
 using Connect.CanvasUtils;
+using Connect.CanvasUtils.Builders;
 using Connect.CanvasUtils.Drawables;
 using HlyssUI.Components;
 using HlyssUI.Utils;
 using SFML.Graphics;
 using SFML.System;
 using SFML.Window;
+using System.Text;
 
 namespace Connect.Widgets
 {
@@ -34,6 +36,8 @@ namespace Connect.Widgets
             Cursor = new CanvasCursor(this);
 
             Tool = new CanvasTool(this);
+            Tool.SetDrawable(new LineBuilder());
+
             _states = RenderStates.Default;
 
             CreateCanvas();
@@ -49,6 +53,11 @@ namespace Connect.Widgets
         {
             get => Tool.ToolColor;
             set => Tool.ToolColor = value;
+        }
+
+        public bool HasDrawings
+        {
+            get => _drawables.Count > 0;
         }
 
         public override void OnInitialized()
@@ -73,7 +82,23 @@ namespace Connect.Widgets
             => _drawables.IndexOf(item);
 
         public void Clear()
-            => _drawables.Clear();
+        {
+            _drawables.Clear();
+            Tool.ClearActionStack();
+            View.Center = new Vector2f();
+        }
+
+        public string Export()
+        {
+            var strBuilder = new StringBuilder(_drawables.Count);
+
+            foreach (var d in _drawables)
+            {
+                strBuilder.AppendLine(d.ToString());
+            }
+
+            return strBuilder.ToString();
+        }
 
         public override void Update()
         {
