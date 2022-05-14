@@ -59,7 +59,7 @@ namespace Connect.Widgets
                         new Spacer(),
                         new SpinButton()
                         {
-                            Width = "100px",
+                            Width = "110px",
                             MinValue = properties.MinValue,
                             MaxValue = properties.MaxValue,
                             Name = "sb"

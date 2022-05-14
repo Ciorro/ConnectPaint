@@ -15,6 +15,15 @@ namespace Connect.Layouts
         private TextBox _filenameBox;
         private TextBox _pathBox;
 
+        public string DefaultName
+        {
+            set
+            {
+                _filenameBox.Text = value;
+                UpdatePreview();
+            }
+        }
+
         public Save()
         {
             Width = "100%";
@@ -32,8 +41,7 @@ namespace Connect.Layouts
                     Width = "100%",
                     MarginTop = "5",
                     MarginBottom = "10",
-                    Name = "filename",
-                    Text = "Unnamed.cpd"
+                    Name = "filename"
                 },
                 new Label("Path")
                 {
@@ -69,7 +77,7 @@ namespace Connect.Layouts
                             Expand = true,
                             Padding = "8",
                             Name = "path",
-                            Text = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments)
+                            Text = Environment.GetFolderPath(Environment.SpecialFolder.Desktop)
                         }
                     }
                 },
@@ -115,7 +123,7 @@ namespace Connect.Layouts
             _filenameBox.OnTextChanged += Save_OnTextChanged;
             _pathBox.OnTextChanged += Save_OnTextChanged;
 
-            UpdatePreview();
+            DefaultName = "Unnamed.cpd";
         }
 
         private void Save_OnTextChanged(object sender, string currentText)

@@ -1,7 +1,9 @@
-﻿using Connect.Dialogs;
+﻿using Connect.CanvasUtils;
+using Connect.Dialogs;
 using HlyssUI.Components;
 using HlyssUI.Components.Dialogs;
 using HlyssUI.Graphics;
+using SFML.Graphics;
 using SFML.System;
 
 namespace Connect.Widgets
@@ -110,7 +112,11 @@ namespace Connect.Widgets
                         },
                         new MenuItem("Export")
                         {
-                            Icon = Icons.FileExport
+                            Icon = Icons.FileExport,
+                            Action = (_) =>
+                            {
+                                Export();
+                            }
                         },
                         new MenuDivider(),
                         new MenuItem("Exit")
@@ -338,6 +344,21 @@ namespace Connect.Widgets
             };
 
             Form.Application.RegisterAndShow(file);
+        }
+
+        private void Export()
+        {
+            var export = new ExportDialog()
+            {
+                OnSaved = (filename, res) =>
+                {
+                    var render = _canvas.RenderToTexture(res);
+                    var img = render.Texture.CopyToImage();
+                    img.SaveToFile(filename);
+                }
+            };
+
+            Form.Application.RegisterAndShow(export);
         }
     }
 }

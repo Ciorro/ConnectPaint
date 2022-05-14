@@ -136,6 +136,32 @@ namespace Connect.Widgets
             return strBuilder.ToString();
         }
 
+        public RenderTexture RenderToTexture(int pixelsWidth)
+        {
+            var bounds = GetBounds(_drawables);
+            float pointSize = (float)pixelsWidth / bounds.Width;
+            float aspectRatio = (float)bounds.Height / bounds.Width;
+            uint textureWidth = (uint)pixelsWidth;
+            uint textureHeight = (uint)(pixelsWidth * aspectRatio);
+
+            var texture = new RenderTexture(textureWidth, textureHeight);
+            texture.Clear(Color.Transparent);
+
+            Transform transform = Transform.Identity;
+            transform.Scale(pointSize, pointSize);
+            transform.Translate(-bounds.Left, -bounds.Top);
+            var states = new RenderStates(transform);
+
+            foreach (var d in _drawables)
+            {
+                texture.Draw(d, states);
+            }
+
+            texture.Display();
+            return texture;
+        }
+
+
         public override void Update()
         {
             base.Update();
@@ -215,6 +241,30 @@ namespace Connect.Widgets
                 Position = (Vector2f)GlobalPosition,
                 Texture = _canvas.Texture
             };
+        }
+
+        private IntRect GetBounds(List<CanvasDrawable> drawables)
+        {
+            int minX = int.MaxValue;
+            int minY = int.MaxValue;
+            int maxX = int.MinValue;
+            int maxY = int.MinValue;
+
+            foreach (var d in drawables)
+            {
+                var bounds = d.GetBounds();
+                int l = bounds.Left;
+                int r = bounds.Left + bounds.Width;
+                int t = bounds.Top;
+                int b = bounds.Top + bounds.Height;
+
+                minX = Math.Min(minX, l);
+                minY = Math.Min(minY, t);
+                maxX = Math.Max(maxX, r);
+                maxY = Math.Max(maxY, b);
+            }
+
+            return new IntRect(minX, minY, maxX - minX, maxY - minY);
         }
 
         //TODO: Extract cursor tool to a separate class (DrawGrid, DrawAxes, DrawCursor);

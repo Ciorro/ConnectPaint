@@ -40,6 +40,24 @@ namespace Connect.CanvasUtils.Drawables
             }
         }
 
+        public IntRect GetBounds()
+        {
+            int minX = int.MaxValue;
+            int minY = int.MaxValue;
+            int maxX = int.MinValue;
+            int maxY = int.MinValue;
+
+            foreach (var p in points)
+            {
+                minX = Math.Min(minX, p.X);
+                minY = Math.Min(minY, p.Y);
+                maxX = Math.Max(maxX, p.X);
+                maxY = Math.Max(maxY, p.Y);
+            }
+
+            return new IntRect(minX, minY, maxX - minX, maxY - minY);
+        }
+
         protected abstract void SetThickness(float thickness);
 
         protected abstract void SetColor(Color color);
