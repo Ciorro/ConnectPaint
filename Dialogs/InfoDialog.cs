@@ -11,7 +11,7 @@ namespace Connect.Dialogs
         {
             Title = "ConnectPaint ";
             WindowStyle = Styles.Titlebar;
-            Size = new Vector2u(400, 170);
+            Size = new Vector2u(400, 270);
         }
 
         protected override void OnInitialized()

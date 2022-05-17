@@ -13,6 +13,8 @@ namespace Connect.Widgets
             {
                 new Icon(icon)
             };
+
+            Appearance = ButtonStyle.Flat;
         }
     }
 }

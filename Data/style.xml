@@ -26,20 +26,6 @@
 		<border-thickness>0</border-thickness>
 	</style>
 	
-	<!--Outline Button Override-->
-	<style name="outline_button_default">
-		<primary-color>transparent</primary-color>
-		<secondary-color>transparent</secondary-color>
-	</style>
-
-	<style name="outline_button_default" state="hovered">
-		<primary-color>secondary</primary-color>
-	</style>
-
-	<style name="outline_button_default" state="pressed">
-		<primary-color>secondary -20</primary-color>
-	</style>
-	
 	<!--Color Selector-->
 	<style name="color-selector-default">
 		<primary-color>transparent</primary-color>
