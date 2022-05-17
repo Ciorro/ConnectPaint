@@ -9,7 +9,7 @@ namespace Connect.Dialogs
     {
         public InfoDialog()
         {
-            Title = "ConnectPaint ";
+            Title = "ConnectPaint";
             WindowStyle = Styles.Titlebar;
             Size = new Vector2u(400, 270);
         }

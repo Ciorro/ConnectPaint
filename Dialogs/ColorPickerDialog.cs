@@ -13,7 +13,7 @@ namespace Connect.Dialogs
         public ColorPickerDialog()
         {
             Title = "Color";
-            Icon = new Image("Data/color.png");
+            Icon = new Image(Program.GetFullPath("Data/color.png"));
             WindowStyle = Styles.Titlebar;
             Size = new Vector2u(400, 400);
         }

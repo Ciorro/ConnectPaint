@@ -1,4 +1,5 @@
 ﻿using Connect.Layouts;
+using Connect.Widgets;
 using HlyssUI;
 using HlyssUI.Components.Routers;
 using HlyssUI.Styling;
@@ -17,7 +18,7 @@ namespace Connect
         {
             HlyssApplication.InitializeStyles();
             HlyssApplication.LoadDefaultTheme();
-            StyleBank.LoadFromFile("Data/style.xml");
+            StyleBank.LoadFromFile(GetFullPath("Data/style.xml"));
 
             ThemeManager.SetTheme("dark");
 
@@ -27,7 +28,7 @@ namespace Connect
             {
                 Size = new Vector2u(1280, 720),
                 Title = "ConnectPaint",
-                Icon = new Image("Data/favicon.png")
+                Icon = new Image(GetFullPath("Data/favicon.png"))
             };
 
             form.Show();
@@ -50,6 +51,23 @@ namespace Connect
 
             App.RegisterForm("main_form", form);
 
+            if (args.Length == 1)
+            {
+                Console.WriteLine(args[0]);
+                App.UpdateAllForms();
+
+                if (File.Exists(args[0]))
+                {
+                    //Load file contents
+                    var content = File.ReadAllText(args[0]);
+
+                    //Get canvas
+                    var canvas = form.Root.FindChild("canvas") as Canvas;
+
+                    canvas.Import(content);
+                }
+            }
+
             while (form.IsOpen)
             {
                 try
@@ -62,6 +80,11 @@ namespace Connect
                     Console.WriteLine($"\n\\!/ ERROR: {e.Message}\n[{e}]\n");
                 }
             }
+        }
+
+        public static string GetFullPath(string relativePath)
+        {
+            return Path.Combine(AppDomain.CurrentDomain.BaseDirectory, relativePath);
         }
     }
 }
