@@ -30,7 +30,7 @@ namespace Connect.Widgets
             _transparent = new RoundedRectangle()
             {
                 BorderRadius = new BorderRadius(4),
-                Texture = new Texture("Data/transparent.png"),
+                Texture = new Texture(Program.GetFullPath("Data/transparent.png")),
                 FillColor = Color.White
             };
             _transparent.Texture.Repeated = true;

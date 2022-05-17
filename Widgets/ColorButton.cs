@@ -31,7 +31,7 @@ namespace Connect.Widgets
 
             _transparent = new CircleShape()
             {
-                Texture = new Texture("Data/transparent.png")
+                Texture = new Texture(Program.GetFullPath("Data/transparent.png"))
             };
 
             _colorPicker = new ColorPickerDialog()
