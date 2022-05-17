@@ -20,7 +20,7 @@ namespace Connect.Dialogs
         {
             base.OnInitialized();
 
-            Root.AddChild(new Save()
+            Root.AddChild(new Save(".cpd")
             {
                 Padding = "10px",
                 Name = "picker",

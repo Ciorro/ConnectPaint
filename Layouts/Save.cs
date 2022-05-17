@@ -11,21 +11,15 @@ namespace Connect.Layouts
         public Action<string> OnCancelled;
 
         private string _preview;
+        private string _extension;
         private Label _previewLbl;
         private TextBox _filenameBox;
         private TextBox _pathBox;
 
-        public string DefaultName
+        public Save(string extension)
         {
-            set
-            {
-                _filenameBox.Text = value;
-                UpdatePreview();
-            }
-        }
+            _extension = extension;
 
-        public Save()
-        {
             Width = "100%";
             Height = "100%";
             Layout = LayoutType.Column;
@@ -36,12 +30,27 @@ namespace Connect.Layouts
                 {
                     Font = Fonts.MontserratSemiBold
                 },
-                new TextBox()
+                new Component()
                 {
                     Width = "100%",
+                    AutosizeY = true,
+                    Reversed = true,
                     MarginTop = "5",
                     MarginBottom = "10",
-                    Name = "filename"
+                    CenterContent = true,
+                    Children = new List<Component>
+                    {
+                        new Label(_extension)
+                        {
+                            MarginLeft = "5px"
+                        },
+                        new TextBox()
+                        {
+                            Expand = true,
+                            Name = "filename",
+                            Text = "Untitled"
+                        },
+                    }
                 },
                 new Label("Path")
                 {
@@ -123,7 +132,7 @@ namespace Connect.Layouts
             _filenameBox.OnTextChanged += Save_OnTextChanged;
             _pathBox.OnTextChanged += Save_OnTextChanged;
 
-            DefaultName = "Unnamed.cpd";
+            UpdatePreview();
         }
 
         private void Save_OnTextChanged(object sender, string currentText)
@@ -133,7 +142,8 @@ namespace Connect.Layouts
 
         private void UpdatePreview()
         {
-            _preview = Path.Combine(_pathBox.Text, _filenameBox.Text);
+            string fullFilename = _filenameBox.Text + _extension;
+            _preview = Path.Combine(_pathBox.Text, fullFilename);
             _previewLbl.Text = _preview;
         }
     }

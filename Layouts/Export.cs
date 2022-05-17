@@ -28,11 +28,10 @@ namespace Connect.Layouts
                     Width = "100%",
                     Name = "resolution"
                 },
-                new Save()
+                new Save(".png")
                 {
                     Height = "220px",
                     MarginTop = "10px",
-                    DefaultName = "Unnamed.png",
                     OnSaved = (_) =>
                     {
                         OnSaved?.Invoke(_, (FindChild("resolution") as PreciseSlider).Value);
