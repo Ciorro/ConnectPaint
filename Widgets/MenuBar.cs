@@ -1,9 +1,7 @@
-﻿using Connect.CanvasUtils;
-using Connect.Dialogs;
+﻿using Connect.Dialogs;
 using HlyssUI.Components;
 using HlyssUI.Components.Dialogs;
 using HlyssUI.Graphics;
-using SFML.Graphics;
 using SFML.System;
 
 namespace Connect.Widgets

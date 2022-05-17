@@ -96,7 +96,7 @@ namespace Connect.Widgets
         {
             base.OnKeyPressed(key);
 
-            if(Keyboard.IsKeyPressed(Keyboard.Key.LControl))
+            if (Keyboard.IsKeyPressed(Keyboard.Key.LControl))
             {
                 if (key == Keyboard.Key.Z)
                 {

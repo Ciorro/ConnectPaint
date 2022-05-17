@@ -19,7 +19,7 @@ namespace Connect.CanvasUtils.Drawables
             get => thickness;
             set
             {
-                if(thickness != value)
+                if (thickness != value)
                 {
                     thickness = value;
                     SetThickness(value);

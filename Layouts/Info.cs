@@ -1,12 +1,7 @@
 ﻿using HlyssUI.Components;
 using HlyssUI.Graphics;
 using HlyssUI.Layout;
-using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Connect.Layouts
 {
@@ -110,7 +105,6 @@ namespace Connect.Layouts
                                     Appearance = Button.ButtonStyle.Filled,
                                     Action = (_) =>
                                     {
-                                        Console.WriteLine("sss");
                                         Form.Hide();
                                     }
                                 }

@@ -1,6 +1,5 @@
 ﻿using HlyssUI.Components;
 using HlyssUI.Graphics;
-using SFML.Graphics;
 
 namespace Connect.Widgets
 {
