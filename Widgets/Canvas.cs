@@ -266,7 +266,6 @@ namespace Connect.Widgets
             return new IntRect(minX, minY, maxX - minX, maxY - minY);
         }
 
-        //TODO: Extract cursor tool to a separate class (DrawGrid, DrawAxes, DrawCursor);
         //TODO: Extract drawable stack to a history class with undo and redo functionality;
     }
 }

@@ -55,18 +55,8 @@ namespace Connect.CanvasUtils
             };
 
             var mPosOnCanvas = _canvas.View.ScreenToCanvas(mPosRelativeToWidget);
-            mPosOnCanvas.X = (int)mPosOnCanvas.X;
-            mPosOnCanvas.Y = (int)mPosOnCanvas.Y;
-
-            if (Math.Sign(mPosOnCanvas.X) < 0)
-            {
-                mPosOnCanvas.X -= 1;
-            }
-
-            if (Math.Sign(mPosOnCanvas.Y) < 0)
-            {
-                mPosOnCanvas.Y -= 1;
-            }
+            mPosOnCanvas.X = MathF.Round(mPosOnCanvas.X);
+            mPosOnCanvas.Y = MathF.Round(mPosOnCanvas.Y);
 
             _cursor.Position = mPosOnCanvas;
         }
