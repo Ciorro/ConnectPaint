@@ -33,7 +33,7 @@ namespace Connect.Layouts
                             Font = Fonts.MontserratBold,
                             Style = "header"
                         },
-                        new Label("v0.1.1"),
+                        new Label("v0.1.2"),
                         new LinkLabel("Created for The Tool Jam 2", "https://itch.io/jam/the-tool-jam-2")
                         {
                             MarginTop = "10px"
@@ -118,6 +118,7 @@ namespace Connect.Layouts
         private void OpenLink(string url)
         {
             ProcessStartInfo info = new ProcessStartInfo("cmd");
+            info.CreateNoWindow = true;
             info.Arguments = $"/c start {url}";
             Process.Start(info);
         }
