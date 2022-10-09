@@ -1,4 +1,5 @@
-﻿using SFML.Graphics;
+﻿using Connect.Widgets;
+using SFML.Graphics;
 using SFML.System;
 
 namespace Connect.Utils
@@ -109,10 +110,16 @@ namespace Connect.Utils
                     var seam = GetTangent(p0, p1, p2).Normal();
                     var seamLen = Thickness / seam.Dot(normal);
 
+
                     if (!float.IsNaN(seamLen))
                     {
                         verts[verts.Count - 2] = p1 - seamLen * seam;
                         verts[verts.Count - 1] = p1 + seamLen * seam;
+                    }
+                    else
+                    {
+                        verts[verts.Count - 2] = p1 + normal * (2f / Canvas.Spacing);
+                        verts[verts.Count - 1] = p1 - normal * (2f / Canvas.Spacing);
                     }
                 }
 
