@@ -9,6 +9,4 @@ ConnectPaint is a small, simplified vector art application. The shapes you're al
 - png and jpg export
 - infinite canvas
 - delightful HlyssUI experience
-- limited set of tools (definitely a feature)
-- export to unrecognized by any other app .cpd format
 - svg export (TODO)
